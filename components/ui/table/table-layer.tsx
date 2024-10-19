@@ -13,6 +13,7 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import Button from "../button";
 import TableSkeleton from "../skeletons/table-skeleton";
+import Link from "next/link";
 // import TableSkeleton from "./skeletons/table-skeleton";
 
 type Props = {
@@ -28,7 +29,7 @@ export default function TableLayer(props: Props) {
   const [isDeleting, startDeleting] = useTransition();
   const [deletePopoverToggle, setDeletePopoverToggle] = useState(false);
   const [targetedUserId, setTargetedUserId] = useState(-1);
-  const { data, isEmpty, isSuccess, isError, message } = props.dataFunction;
+  const { data, isEmpty, isSuccess, isError } = props.dataFunction;
 
   // some endpoints id's names are not united, thus this
   // variable will check if it's 'id', 'instId' or whatever
@@ -85,7 +86,7 @@ export default function TableLayer(props: Props) {
   // delete data form the database
   function deleteDataFunction(id: number) {
     startDeleting(async () => {
-      const { isSuccess, isError, message } = await props.deleteFunction(id);
+      const { isSuccess, message } = await props.deleteFunction(id);
       const toastType = isSuccess ? "success" : "error";
       //NOTE: the error message sometimes it returns an array
       const messageArrayOrString = Array.isArray(message)
@@ -128,6 +129,12 @@ export default function TableLayer(props: Props) {
                     `${[nestedArrayItem[ar.key as string]]}, `,
                 ),
               )
+            ) : ["name", "fullName", "subjectName"].includes(
+                head.key as string,
+              ) ? (
+              <Link href={`${props.route}/${data[idKey as string]}`}>
+                {data[head.key as string]}
+              </Link>
             ) : (
               data[head.key as string]
             )}
@@ -162,9 +169,7 @@ export default function TableLayer(props: Props) {
           </div>
           {deletePopoverToggle && targetedUserId === data[idKey] ? (
             <div className="min-w-full z-50 absolute right-1 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center gap-4 bg-white rounded border border-gray-300 shadow-lg shadow-gray-300 p-2">
-              <p className="text-center">
-                Delete User {data[idKey]}.{data?.fullName}
-              </p>
+              <p className="text-center">Confirm delete</p>
               <div className="flex items-center gap-2">
                 <Button
                   variant="danger"
