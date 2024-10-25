@@ -18,8 +18,8 @@ export const endpoints = {
     roles: {
       create: "authorization/roles/create", // add new role
       update: "authorization/roles/update", // update current role
-      all: "authorization/roles/ list", // available roles
-      id: "authorization/roles/id", // get role by id
+      all: "authorization/roles/list", // available roles
+      id: "authorization/roles/", // get role by id
       delete: "authorization/roles/delete", // delete role
       getRolesByUserId: "authorization/manage-user-roles/", // { userId } user roles by id
       updateUserRoles: "authorization/update-user-roles/", //  send plain object

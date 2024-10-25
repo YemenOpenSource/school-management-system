@@ -37,12 +37,13 @@ export default function DepartmentUpdateForm(props: Props) {
   );
   const findInsctructorId = props?.instructors.data?.find(
     (instructor) => instructor?.name === departmentManagerName,
-  )?.instId;
+  )?.id;
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    watch
   } = useForm<YupDepartmentUpdateInputs>({
     resolver: yupResolver(yupDepartmentUpdateSchema),
     mode: "onChange",
@@ -53,8 +54,17 @@ export default function DepartmentUpdateForm(props: Props) {
     },
   });
 
+  // const findInsctructorId =
+
+  console.log(isValid)
+  console.log(findInsctructorId)
+  console.log(departmentId)
+  console.log()
+
   const isUpdatingValid = isValid && !selectNotAllowed;
   const isButtonValid = isUpdating || !isUpdatingValid;
+
+  console.log(watch())
   const onSubmit: SubmitHandler<YupDepartmentUpdateInputs> = (data) => {
     const { insId, nameAr, nameEn } = data;
     startUpdating(async () => {

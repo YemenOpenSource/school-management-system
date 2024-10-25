@@ -49,7 +49,7 @@ export async function handleSignIn(
       throw error;
     }
     if (axios.isAxiosError(error)) {
-      console.log('error sfwn login', error)
+      console.log("error sfwn login", error);
       if (error.response) {
         const {
           data: { statusCode, message },
@@ -63,7 +63,7 @@ export async function handleSignIn(
         );
       }
     } else {
-      console.log('error sfwn login', error)
+      console.log("error sfwn login", error);
       return fetchResponse(
         400,
         "error",
@@ -300,6 +300,7 @@ export async function updateUser(
         statusText,
         data: { statusCode, message },
       } = await apiClient.put(endpoints.users.update, FD);
+      revalidatePath('uesrs')
       return fetchResponse(
         status || statusCode,
         "success",
@@ -334,6 +335,7 @@ export async function createUser(
 ): Promise<IFetchResponse<undefined> | undefined> {
   const token = cookies().get("token")?.value;
   apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
 
   try {
     const {
@@ -623,7 +625,7 @@ export async function updateInstructor(
       return fetchResponse(
         status || statusCode,
         "success",
-        statusText || "instructor updated successfully",
+        "instructor updated successfully",
       );
     }
   } catch (error) {
@@ -821,7 +823,7 @@ export async function updateDepartment(
         statusText,
         data: { statusCode, message },
       } = await apiClient.put(endpoints.departments.update, data);
-      revalidatePath("Departments");
+      revalidatePath("departments");
       return fetchResponse(
         status || statusCode,
         "success",
@@ -1022,7 +1024,7 @@ export async function updateStudent(
         data: { statusCode, message },
       } = res;
       console.log(res);
-      revalidatePath("Departments");
+      revalidatePath("students");
       return fetchResponse(
         status || statusCode,
         "success",

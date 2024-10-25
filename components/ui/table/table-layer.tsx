@@ -18,6 +18,7 @@ import Link from "next/link";
 
 type Props = {
   dataFunction: any;
+  relatedDataFunction?: any,
   deleteFunction?: any;
   tableHeader: ITableHead[];
   currentUser?: IClientResponse<IUser>;
@@ -109,7 +110,7 @@ export default function TableLayer(props: Props) {
     data &&
     data?.map((data: any) => (
       <Tr key={data[idKey]}>
-        {props.tableHeader?.map((head) => (
+        {/* {props.tableHeader?.map((head) => (
           <Td key={head.name} id={data[idKey]}>
             {head.key === "imagePath" ? (
               <Image
@@ -138,6 +139,31 @@ export default function TableLayer(props: Props) {
             ) : (
               data[head.key as string]
             )}
+          </Td>
+        ))} */}
+        {props.tableHeader?.map((head) => (
+          <Td key={head.name} id={data[idKey]}>
+            {head.key === "imagePath" ? (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  data?.[head?.key] ||
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                }
+                alt={data?.[idKey] || "data avatar"}
+                className="size-10 border border-gray-300 rounded shadow-sm"
+              />
+            ) : ["name", "fullName", "subjectName"].includes(
+              head.key as string,
+            ) ? (
+              <Link href={`${props.route}/${data[idKey as string]}`}>
+                {data[head.key as string]}
+              </Link>
+            )
+              : (
+                data[head.key as string]
+              )}
           </Td>
         ))}
         <Td className="relative">

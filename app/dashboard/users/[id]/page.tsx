@@ -15,7 +15,3 @@ export default async function page(props: Props) {
     </div>
   );
 }
-
-/* NOTE
- * name,
- */

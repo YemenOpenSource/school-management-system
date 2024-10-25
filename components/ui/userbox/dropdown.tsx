@@ -33,9 +33,6 @@ export default function Dropdown({ children, user }: Props) {
   };
 
   const userProtectedLinks = userAvatarNavlinks.protected;
-  //   const userProtectedLinks = userAvatarNavlinks.protected.filter((link) =>
-  //   link.roles.includes(currentUserRole[0])
-  // );
 
   console.log(user?.isSuccess);
   const userPublicLinks = userAvatarNavlinks.public;
@@ -52,7 +49,7 @@ export default function Dropdown({ children, user }: Props) {
       >
         {link?.title}
       </Link>
-    ) : null
+    ) : null,
   );
 
   const userDataContainer = (
@@ -140,12 +137,12 @@ export default function Dropdown({ children, user }: Props) {
     content = userDataContainerIsEmpty;
   }
   if (user?.isError) {
-    content = '';
+    content = "";
   }
   // if (user?.isError) {
   //   content = "";
   // }
-  console.log(user?.isError, user?.isAuth)
+  console.log(user?.isError, user?.isAuth);
 
   const finalContent = (
     <div className="z-10 absolute shadow-xl shadow-gray-200 right-6 top-[calc(100%+10px)] bg-white border border-gray-300 rounded-md p-1 flex flex-col flex-wrap items-start justify-start gap-2 min-w-[150px] md:min-w-[200px]">

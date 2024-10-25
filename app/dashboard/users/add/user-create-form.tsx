@@ -12,7 +12,6 @@ import FileInput from "@/components/ui/file-input";
 import Message from "@/components/ui/message";
 import Input from "@/components/ui/input";
 import FetchMessage from "@/components/ui/fetch-message";
-import { mixed, object, ref, string } from "yup";
 
 interface CreateInputs {
   userName: string;
@@ -23,19 +22,8 @@ interface CreateInputs {
   image: FileList;
 }
 
-// const yupUserCreateSchema = object({
-//   userName: string().required("Username is required"),
-//   fullName: string().required("Full name is required"),
-//   email: string().email("Invalid email").required("Email is required"),
-//   password: string().required("Password is required"),
-//   confirmPassword: string()
-//     .oneOf([ref("password")], "Passwords must match")
-//     .required("Confirm password is required"),
-//   image: mixed().required("Image is required"),
-// });
-
 type Props = {};
-export default function UserCreateForm({}: Props) {
+export default function UserCreateForm({ }: Props) {
   const [isCreatingUser, startCreatingUser] = useTransition();
   const apiResponseMessagesRef = useRef<IFetchResponse<[]>>({
     isSuccess: false,
@@ -45,6 +33,7 @@ export default function UserCreateForm({}: Props) {
   const [profileImage, setProfileImage] = useState("");
   const [nativeImage, setNativeImage] = useState<File>();
   const [singleImage, setSingleImage] = useState<File | undefined>();
+  console.log(profileImage)
 
   const imagePreview = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -59,28 +48,41 @@ export default function UserCreateForm({}: Props) {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    watch
   } = useForm<YupUserCreateInputs>({
     resolver: yupResolver(yupUserCreateSchema),
     mode: "onChange",
   });
 
+
   const onSubmit: SubmitHandler<YupUserCreateInputs> = async (data) => {
     const { userName, fullName, email, password, confirmPassword, image } =
       data;
+    console.log('image data', data)
+    console.log('image data', data?.image)
+
     const FD = new FormData();
     FD.append("userName", userName);
     FD.append("fullName", fullName);
     FD.append("email", email);
     FD.append("password", password);
     FD.append("confirmPassword", confirmPassword);
-    FD.append("image", image[0]);
-    // FD.append("image", singleImage);
+    // FD.append("image", watch()?.image?.[0]);
+    // FD.append("image", profileImage);
+
+    function isFileList(value: unknown): value is FileList {
+      return value instanceof FileList;
+    }
+    if (isFileList(data.image) && data.image[0]) {
+      FD.append("image", data.image[0]);
+    }
 
     startCreatingUser(async () => {
-      const { isSuccess, isError, message } = (await createUser(
+      const res = (await createUser(
         FD,
       )) as IFetchResponse<undefined>;
-      if (status !== "idle") {
+      if (res) {
+        const { isSuccess, isError, message } = res
         apiResponseMessagesRef.current = {
           isSuccess,
           isError,
@@ -89,7 +91,6 @@ export default function UserCreateForm({}: Props) {
       }
     });
   };
-  console.log("sfwn", apiResponseMessagesRef.current.message);
 
   return (
     <div className="w-full md:max-w-[700px] md:w-auto mx-auto rounded border border-gray-300 p-4">
@@ -181,13 +182,19 @@ export default function UserCreateForm({}: Props) {
           <Message variant="danger">{errors.confirmPassword?.message}</Message>
         </div>
         <div className="col-span-full">
+          {/* <input type="file"
+            placeholder="Your image"
+            {...register("image")}
+            {...register("image")}
+            onChange={imagePreview}
+          /> */}
           <FileInput
             type="file"
             // name="imagePath"
             placeholder="Your image"
             {...register("image")}
             onChange={imagePreview}
-            accept="image/*"
+          // accept="image/*"
           />
         </div>
         <div className="col-span-full">

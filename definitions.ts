@@ -35,7 +35,7 @@ export interface IUser {
   email?: string;
   imagePath?: string | null;
   fullName?: string;
-  roles?: string[];
+  roles?: number[];
   roleId?: number;
   createdAt?: string;
   lastUpdate?: string;
@@ -53,7 +53,8 @@ export type YupUserResetPassword = InferType<typeof yupUserResetPasswordSchema>;
 // }
 export type YupUserCreateInputs = InferType<typeof yupUserCreateSchema>;
 export interface IInstructor {
-  instId: number;
+  id?: number;
+  instId?: number;
   name: string;
   nameAr?: string;
   nameEn?: string;
@@ -72,6 +73,26 @@ export interface IInstructorUpdate {
   salary: number;
   departmentId: number;
 }
+// {
+//   "id": 1,
+//   "name": "Eng. Safwan Mohamed",
+//   "address": "123 Professor St",
+//   "position": "Professor",
+//   "imagePath": null,
+//   "supervisorId": null,
+//   "salary": 70000,
+//   "deptId": 10
+// },
+// {
+//      "id": 1,
+//      "name": "Eng. Safwan Mohamed",
+//      "address": "123 Professor St",
+//      "position": "Professor",
+//      "imagePath": null,
+//      "supervisorId": null,
+//      "salary": 70000,
+//      "deptId": 10
+//    },
 export type YupInstructorUpdateInputs = InferType<
   typeof yupInstructorUpdateSchema
 >;
@@ -81,9 +102,10 @@ export type YupInstructorCreateInputs = InferType<
 
 export interface IDepartment {
   id: number;
-  deptId?: number;
+  // deptId?: number;
   name: string;
-  managerName: string;
+  managerId: number;
+  managerName?: string;
   students: { id: number; name: string }[];
   instructors: { id: number; nmae: string }[];
   subjects: { id: number; name: string }[];
@@ -99,10 +121,11 @@ export type YupDepartmentCreateInputs = InferType<
 
 export interface IStudent {
   id?: number;
-  studId: number;
+  studId?: number;
   name: string;
   address: string;
-  departmentName: string[] | null;
+  departmentName?: string[] | null;
+  departmentId?: number | null;
 }
 
 export type YupStudentUpdateInputs = InferType<typeof yupStudentUpdateSchema>;

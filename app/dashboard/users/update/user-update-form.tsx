@@ -33,27 +33,27 @@ export default function UserUpdateForm(props: Props) {
     email,
     roles,
   } = props?.user.data || {};
-
-  console.log("sfwn is me", props?.roles.data);
+  const findRoleId = roles?.[0]
 
   const { options, selectNotAllowed, message } = useRolessOptions(props?.roles);
-  const findRoleId = props?.roles?.data?.find(
-    (role) => role.name === roles?.[0],
-  )?.name;
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    watch
   } = useForm<YupUserUpdateInputs>({
     resolver: yupResolver(yupUserUpdateSchema),
     mode: "onChange",
     defaultValues: {
+      roleId: findRoleId,
       userName: userName,
       fullName: fullName,
       email: email,
     },
   });
+
+  console.log(watch())
 
   const isUpdatingValid = isValid && !selectNotAllowed;
   const isButtonValid = isUpdating || !isUpdatingValid;
@@ -127,7 +127,7 @@ export default function UserUpdateForm(props: Props) {
         </div>
         <select
           {...register("roleId")}
-          defaultValue={findRoleId}
+          // defaultValue={findRoleId}
           className="disabled:opacity-50 disabled:cursor-not-allowed w-full h-fit border border-gray-500 rounded text-black text-sm px-4 py-2 cursor-pointer col-span-1"
           disabled={selectNotAllowed}
           title={

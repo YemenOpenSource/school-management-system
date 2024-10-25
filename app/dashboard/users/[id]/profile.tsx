@@ -28,7 +28,7 @@ export default function Profile(props: Props) {
           <p className="text-gray-400 text-sm font-normal mb-2">
             {data?.email}
           </p>
-          <Badge variant="info">{data?.roles?.[0]}</Badge>
+          <Badge variant="info">{data?.roles?.[0].toString()}</Badge>
         </div>
       </div>
       <hr />

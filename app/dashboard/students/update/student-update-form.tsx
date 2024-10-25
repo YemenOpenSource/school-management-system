@@ -22,7 +22,6 @@ type Props = {
   student: IClientResponse<IStudent>;
 };
 
-export const revalid = 1;
 export default function StudentUpdateForm(props: Props) {
   const [isUpdating, startUpdating] = useTransition();
   const apiResponseMessageRef = useRef<IFetchResponse<undefined>>({
@@ -31,22 +30,24 @@ export default function StudentUpdateForm(props: Props) {
     message: "",
   });
   const {
-    studId: studentId,
+    id: studentId,
     name: stuedentName,
     address: studentAddress,
-    departmentName,
+    departmentId,
   } = props?.student?.data || {};
 
-  const findDepartmentId = props?.departments.data?.find(
-    (department: IDepartment) =>
-      department?.name === departmentName?.toString(),
-  )?.deptId;
+  // const findDepartmentId = props?.departments.data?.find(
+  //   (department: IDepartment) =>
+  //     department?.name === departmentId?.toString(),
+  // )?.id;
 
   const { options, selectNotAllowed, message } = useDepartmentsOptions(
     props?.departments,
   );
+  // console.log(props?.student?.data)
+  // console.log(props?.departments?.data)
 
-  console.log("departmentId", findDepartmentId);
+  // console.log("departmentId", findDepartmentId);
   //--------------------------------
   //form submition
   //--------------------------------
@@ -146,7 +147,7 @@ export default function StudentUpdateForm(props: Props) {
           <label className="text-sm mb-1 block">department</label>
           <select
             {...register("departmentId")}
-            defaultValue={findDepartmentId}
+            defaultValue={departmentId ?? ''}
             disabled={selectNotAllowed}
             className={`
               cursor-pointer
@@ -159,7 +160,7 @@ export default function StudentUpdateForm(props: Props) {
                 : "select the a department"
             }
           >
-            <option selected={!findDepartmentId} disabled>
+            <option selected={!departmentId} disabled>
               select department
             </option>
             {options}

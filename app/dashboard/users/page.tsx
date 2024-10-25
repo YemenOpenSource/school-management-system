@@ -1,14 +1,27 @@
 import Button from "@/components/ui/button";
 import TableLayer from "@/components/ui/table/table-layer";
 import Title from "@/components/ui/title";
-import { IClientResponse, IUser } from "@/definitions";
-import { deleteUser, getAllUsers, getCurrentUser } from "@/lib/actions";
+import { IClientResponse, IRole, IUser } from "@/definitions";
+import { deleteUser, getAllRoles, getAllUsers, getCurrentUser, getRolesByUserId } from "@/lib/actions";
 
 export default async function page() {
   const [users, currentUser] = await Promise.all([
     getAllUsers(),
     getCurrentUser(),
   ]);
+  const roles = await getAllRoles()
+  const replaceRoleIdByRoleName = (users?.data as IUser[])?.map((user) => {
+    const rols = (roles?.data as IRole[])?.find((role) => role.id === user.roles?.[0])
+    return {
+      ...user,
+      roles: rols ? rols.name : '-'
+    }
+  })
+
+  const userWithRoles = {
+    ...users,
+    data: replaceRoleIdByRoleName,
+  }
 
   const userKeysAndNames = [
     {
@@ -45,7 +58,7 @@ export default async function page() {
         </Button>
       </Title>
       <TableLayer
-        dataFunction={users}
+        dataFunction={userWithRoles}
         deleteFunction={deleteUser}
         tableHeader={userKeysAndNames}
         currentUser={currentUser as IClientResponse<IUser>}

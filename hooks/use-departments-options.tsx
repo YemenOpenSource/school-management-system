@@ -15,7 +15,7 @@ export function useDepartmentsOptions(departments: IClientResponse<IDepartment[]
   let options = useMemo(() => {
     if (isSuccess) {
       return data?.map((dep) => (
-        <option id={dep?.deptId?.toString()} value={dep.deptId} key={dep.deptId}>
+        <option id={dep?.id?.toString()} value={dep.id} key={dep.id}>
           {dep.name}
         </option>))
     }

@@ -28,7 +28,14 @@ const user = {
     .required("confirm password is required")
     .oneOf([ref("password")], "Password must match"),
   email: string().email().required(),
-  image: string().required("Select image"),
+  // image: string().required("Select image"),
+  image: mixed()
+    .required("Select image")
+    .test("fileType", "File must be an image", (value) => {
+      // Type assertion to FileList
+      const fileList = value as FileList;
+      return fileList && fileList[0] && ["image/jpeg", "image/png", "image/gif"].includes(fileList[0].type);
+    }),
   roleId: number().nullable().optional(),
 };
 export const yupLoginSchema = object({
@@ -91,7 +98,7 @@ export const yupInstructorCreateSchema = object({
 });
 
 const department = {
-  deptId: number(),
+  id: number(),
   instructorId: number().required("instructor is required"),
   managerId: number(),
   name: string()
@@ -106,6 +113,7 @@ const department = {
 };
 
 export const yupDepartmentUpdateSchema = object({
+  departmentId: department.id,
   insId: department.instructorId,
   nameAr: department.nameAr,
   nameEn: department.nameEn,

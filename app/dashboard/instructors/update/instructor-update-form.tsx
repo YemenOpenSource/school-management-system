@@ -27,7 +27,7 @@ export default function InstructorUpdateForm(props: Props) {
   const { responseRef, updateResponse } = useFetchResponse();
 
   const {
-    instId: instructorId,
+    id: instructorId,
     name: instructorName,
     position: instructorPosition,
     salary: instructorSalary,
@@ -37,6 +37,9 @@ export default function InstructorUpdateForm(props: Props) {
   const { options, selectNotAllowed, message } = useDepartmentsOptions(
     props?.departments,
   );
+
+  console.log(props.instructor.data)
+  console.log(instructorId)
 
   const {
     register,

@@ -11,11 +11,12 @@ export function useInstructorsOptions(instructors: IClientResponse<IInstructor[]
   } = instructors
 
   const selectNotAllowed = isEmpty || isError
+  console.log(instructors.data)
 
   let options = useMemo(() => {
     if (isSuccess) {
       return data?.map((instructor) => (
-        <option id={instructor.instId?.toString()} value={instructor.instId} key={instructor.instId}>
+        <option id={instructor.id?.toString()} value={instructor.id} key={instructor.id}>
           {instructor.name}
         </option>))
     }

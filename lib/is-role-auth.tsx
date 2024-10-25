@@ -17,9 +17,9 @@ export default async function IsRoleAuth({ children }: Props) {
   console.log(await getInstructorById(22));
 
   // if the current user's role do not equal the authentic role; redirect to home '/'
-  if (currentUser && !currentUserRole?.includes("Admin")) {
+  if (currentUser && !currentUserRole?.includes(1)) {
     revalidatePath("/");
-    return <NotFound />
+    return <NotFound />;
     // redirect("/");
   }
 

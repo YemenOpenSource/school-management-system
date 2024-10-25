@@ -11,7 +11,8 @@ type Props = {
 };
 export default async function IsAuth({ children, route }: Props) {
   const checkTokenIfValid = await isTokenValid();
-  console.log(checkTokenIfValid?.isSuccess)
+  console.log(checkTokenIfValid?.isSuccess);
+  console.log("sfwnis checking");
 
   // check if the token expired
   await refreshTokenIfExpired();

@@ -1,14 +1,30 @@
 import Button from "@/components/ui/button";
 import TableLayer from "@/components/ui/table/table-layer";
 import Title from "@/components/ui/title";
-import { deleteStudent, getAllStudents } from "@/lib/actions";
+import { IDepartment, IStudent } from "@/definitions";
+import { deleteStudent, getAllDepartments, getAllStudents } from "@/lib/actions";
 import React from "react";
 
 export default async function page() {
   const students = await getAllStudents();
+  const departments = await getAllDepartments()
+
+  const replaceDepartmentIdByDeparmentName = (students?.data as IStudent[])?.map((stud) => {
+    const dept = (departments?.data as IDepartment[])?.find((dep) => dep.id === stud.departmentId)
+    return {
+      ...stud,
+      departmentId: dept ? dept.name : '-'
+    }
+  })
+
+  const studentsWithDepartments = {
+    ...students,
+    data: replaceDepartmentIdByDeparmentName,
+  }
+
   const studentsKeysAndNames = [
     {
-      key: "studId",
+      key: "id",
       name: "id",
     },
     {
@@ -20,7 +36,7 @@ export default async function page() {
       name: "address",
     },
     {
-      key: "departmentName",
+      key: "departmentId",
       name: "department",
     },
   ];
@@ -31,7 +47,7 @@ export default async function page() {
         <Button href="/dashboard/students/add">Create</Button>
       </Title>
       <TableLayer
-        dataFunction={students}
+        dataFunction={studentsWithDepartments}
         deleteFunction={deleteStudent}
         tableHeader={studentsKeysAndNames}
         route="students"

@@ -1,14 +1,30 @@
 import Button from "@/components/ui/button";
 import TableLayer from "@/components/ui/table/table-layer";
-import { deleteInstructor, getAllInstructors } from "@/lib/actions";
+import { deleteInstructor, getAllDepartments, getAllInstructors, getDepartmentById, getInstructorById } from "@/lib/actions";
 import React from "react";
 import Title from "../../../components/ui/title";
+import { IDepartment, IInstructor } from "@/definitions";
 
 export default async function page() {
   const instructors = await getAllInstructors();
+  const departments = await getAllDepartments()
+
+  const replaceDepartmentIdByDeparmentName = (instructors?.data as IInstructor[])?.map((inst) => {
+    const dept = (departments?.data as IDepartment[])?.find((dep) => dep.id === inst.deptId)
+    return {
+      ...inst,
+      deptId: dept ? dept.name : '-'
+    }
+  })
+
+  const instructorWithDepartments = {
+    ...instructors,
+    data: replaceDepartmentIdByDeparmentName,
+  }
+
   const instructorsKeysAndNames = [
     {
-      key: "instId",
+      key: "id",
       name: "id",
     },
     {
@@ -23,6 +39,10 @@ export default async function page() {
       key: "salary",
       name: "salary",
     },
+    {
+      key: "deptId",
+      name: "department",
+    },
   ];
   return (
     <div>
@@ -30,7 +50,7 @@ export default async function page() {
         <Button href="/dashboard/instructors/add">Create</Button>
       </Title>
       <TableLayer
-        dataFunction={instructors}
+        dataFunction={instructorWithDepartments}
         deleteFunction={deleteInstructor}
         tableHeader={instructorsKeysAndNames}
         route="instructors"
