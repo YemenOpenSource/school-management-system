@@ -32,9 +32,9 @@ export default function DepartmentProfile(props: Props) {
             {data?.name}
           </h3>
           <p className="text-gray-400 text-sm font-normal mb-2">Managed by: <span className="flex">{data?.managerName}</span></p>
-          {subjectsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">subjects:<span className="flex flex-wrap gap-1">{data?.subjects?.map((subject) => <Button size="xs" variant="info" href={"/dashboard/subjects/" + subject?.id}>{subject.name}</Button>)}</span></p>}
-          {studentsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">students:<span className="flex flex-wrap gap-1">{data?.students?.map((student) => <Button size="xs" variant="info" href={"/dashboard/students/" + student?.id}>{student.name}</Button>)}</span></p>}
-          {instructorsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">instructors:<span className="flex flex-wrap gap-1">{data?.instructors?.map((instructor) => <Button size="xs" variant="info" href={"/dashboard/instructors/" + instructor?.id}>{instructor?.name}</Button>)}</span></p>}
+          {subjectsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">subjects:<span className="flex flex-wrap gap-1">{data?.subjects?.map((subject) => <Button key={subject?.name} size="xs" variant="info" href={"/dashboard/subjects/" + subject?.id}>{subject.name}</Button>)}</span></p>}
+          {studentsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">students:<span className="flex flex-wrap gap-1">{data?.students?.map((student) => <Button key={student?.name} size="xs" variant="info" href={"/dashboard/students/" + student?.id}>{student.name}</Button>)}</span></p>}
+          {instructorsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">instructors:<span className="flex flex-wrap gap-1">{data?.instructors?.map((instructor) => <Button key={instructor?.name} size="xs" variant="info" href={"/dashboard/instructors/" + instructor?.id}>{instructor?.name}</Button>)}</span></p>}
         </div>
       </div>
     </div>
