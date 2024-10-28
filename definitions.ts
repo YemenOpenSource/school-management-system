@@ -73,26 +73,7 @@ export interface IInstructorUpdate {
   salary: number;
   departmentId: number;
 }
-// {
-//   "id": 1,
-//   "name": "Eng. Safwan Mohamed",
-//   "address": "123 Professor St",
-//   "position": "Professor",
-//   "imagePath": null,
-//   "supervisorId": null,
-//   "salary": 70000,
-//   "deptId": 10
-// },
-// {
-//      "id": 1,
-//      "name": "Eng. Safwan Mohamed",
-//      "address": "123 Professor St",
-//      "position": "Professor",
-//      "imagePath": null,
-//      "supervisorId": null,
-//      "salary": 70000,
-//      "deptId": 10
-//    },
+
 export type YupInstructorUpdateInputs = InferType<
   typeof yupInstructorUpdateSchema
 >;

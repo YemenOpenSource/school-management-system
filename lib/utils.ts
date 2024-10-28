@@ -1,9 +1,6 @@
 // import { deleteCookie, hasCookie } from "cookies-next";
 
-import {
-  FormDataObjectType,
-  IFetchResponse,
-} from "@/definitions";
+import { FormDataObjectType, IFetchResponse } from "@/definitions";
 
 export const appendToFormData = (data: FormDataObjectType<any>): FormData => {
   const FD = new FormData();
@@ -44,7 +41,7 @@ export function fetchResponse<T>(
   statusCode: number,
   status: "success" | "error",
   message: string = "",
-  data?: IFetchResponse<T>["data"]
+  data?: IFetchResponse<T>["data"],
 ): IFetchResponse<T> {
   let initialObject: IFetchResponse<T> = {
     data: [], // default value is array
@@ -52,7 +49,7 @@ export function fetchResponse<T>(
     isSuccess: false,
     isError: true,
     // isAuth: true, // initially true to check either auth or not
-    isAuth: false, // initially true to check either auth or not
+    // isAuth: false, // initially true to check either auth or not
     message:
       "this message is the default message of the response returned schema",
   };
@@ -60,8 +57,8 @@ export function fetchResponse<T>(
   initialObject.isError = Boolean(status === "error");
   initialObject.message = message ?? initialObject.message;
 
-  console.log(initialObject.isSuccess);
-  console.log(initialObject.isError);
+  // console.log(initialObject.isSuccess);
+  // console.log(initialObject.isError);
 
   // check if the data is array and if the data is empty array or not
   // check if the data is object and if the data is empty object or not
@@ -92,13 +89,13 @@ export function fetchResponse<T>(
   if (status === "success") {
     initialObject.isSuccess = true;
     initialObject.isError = false;
-    initialObject.isAuth = true
+    initialObject.isAuth = true;
   } else if (status === "error") {
     if (statusCode === 401) {
-      console.log(statusCode)
+      console.log(statusCode);
       initialObject.isSuccess = false;
       initialObject.isError = true;
-      initialObject.isAuth = false
+      initialObject.isAuth = false;
     } else {
       initialObject.isSuccess = false;
       initialObject.isError = true;
