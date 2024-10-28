@@ -2,14 +2,15 @@
 import {
   IClientResponse,
   IDepartment,
-  YupInstructorCreateInputs,
+  IInstructor,
+  YupInstructorUpdateInputs,
 } from "@/definitions";
 import React, { useTransition } from "react";
 import { useDepartmentsOptions } from "../../../../hooks/use-departments-options";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { yupInstructorCreateSchema } from "@/lib/validation-schema-yup";
+import { yupInstructorUpdateSchema } from "@/lib/validation-schema-yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createInstructor } from "@/lib/actions";
+import { updateInstructor } from "@/lib/actions";
 import Input from "@/components/ui/input";
 import Message from "@/components/ui/message";
 import Button from "@/components/ui/button";
@@ -17,33 +18,52 @@ import FetchMessage from "@/components/ui/fetch-message";
 import useFetchResponse from "@/hooks/use-fetch-response";
 
 type Props = {
+  instructor: IClientResponse<IInstructor>;
   departments: IClientResponse<IDepartment[]>;
 };
 
-export default function InstructorCreateForm(props: Props) {
+export default function InstructorUpdateForm(props: Props) {
   const [isUpdating, startUpdating] = useTransition();
   const { responseRef, updateResponse } = useFetchResponse();
+
+  const {
+    id: instructorId,
+    name: instructorName,
+    position: instructorPosition,
+    salary: instructorSalary,
+    deptId: instructorDeptId,
+  } = props?.instructor?.data || {};
 
   const { options, selectNotAllowed, message } = useDepartmentsOptions(
     props?.departments,
   );
 
+  console.log(props.instructor.data)
+  console.log(instructorId)
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch,
-  } = useForm<YupInstructorCreateInputs>({
-    resolver: yupResolver(yupInstructorCreateSchema),
+  } = useForm<YupInstructorUpdateInputs>({
+    resolver: yupResolver(yupInstructorUpdateSchema),
     mode: "onChange",
+    defaultValues: {
+      nameAr: instructorName,
+      nameEn: instructorName,
+      position: instructorPosition,
+      salary: instructorSalary,
+      departmentId: instructorDeptId,
+    },
   });
-  console.log(watch());
+
   const isUpdatingValid = isValid && !selectNotAllowed;
   const isButtonValid = isUpdating || !isUpdatingValid;
-  const onSubmit: SubmitHandler<YupInstructorCreateInputs> = (data) => {
+  const onSubmit: SubmitHandler<YupInstructorUpdateInputs> = (data) => {
     const { nameAr, nameEn, position, salary, departmentId } = data;
     startUpdating(async () => {
-      const createData = {
+      const updateData = {
+        id: instructorId,
         nameAr,
         nameEn,
         position,
@@ -51,7 +71,7 @@ export default function InstructorCreateForm(props: Props) {
         departmentId,
       };
       if (isUpdatingValid) {
-        const res = await createInstructor(createData);
+        const res = await updateInstructor(updateData);
         console.log(res);
         if (res) {
           updateResponse(res);
@@ -67,74 +87,11 @@ export default function InstructorCreateForm(props: Props) {
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-4 gap-2"
       >
-        <div className="col-span-full md:col-span-2">
-          <Input
-            type="text"
-            title="arabic name"
-            placeholder="Your full arabic name"
-            variant={
-              errors.nameAr?.message
-                ? "danger"
-                : isValid
-                  ? "success"
-                  : "initial"
-            }
-            {...register("nameAr")}
-          />
-          <Message variant="danger">{errors.nameAr?.message}</Message>
-        </div>
-        <div className="col-span-full md:col-span-2">
-          <Input
-            type="text"
-            title="english name"
-            placeholder="Your user english name"
-            variant={
-              errors.nameEn?.message
-                ? "danger"
-                : isValid
-                  ? "success"
-                  : "initial"
-            }
-            {...register("nameEn")}
-          />
-          <Message variant="danger">{errors.nameEn?.message}</Message>
-        </div>
-        <div className="col-span-full md:col-span-2">
-          <Input
-            type="text"
-            title="position"
-            placeholder="Your position"
-            variant={
-              errors.position?.message
-                ? "danger"
-                : isValid
-                  ? "success"
-                  : "initial"
-            }
-            {...register("position")}
-          />
-          <Message variant="danger">{errors.position?.message}</Message>
-        </div>
-        <div className="col-span-full md:col-span-1">
-          <Input
-            type="text"
-            title="salary"
-            placeholder="Your user salary"
-            variant={
-              errors.salary?.message
-                ? "danger"
-                : isValid
-                  ? "success"
-                  : "initial"
-            }
-            {...register("salary")}
-          />
-          <Message variant="danger">{errors.salary?.message}</Message>
-        </div>
         <div className="col-span-full md:col-span-1">
           <label className="text-sm mb-1 block">department</label>
           <select
             {...register("departmentId")}
+            defaultValue={instructorDeptId}
             disabled={selectNotAllowed}
             className={`
               disabled:opacity-50 disabled:cursor-not-allowed
@@ -146,8 +103,8 @@ export default function InstructorCreateForm(props: Props) {
                 : "select the a department"
             }
           >
-            <option selected disabled>
-              select department
+            <option selected={!instructorDeptId} disabled>
+              select instructor
             </option>
             {options}
           </select>

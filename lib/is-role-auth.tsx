@@ -12,9 +12,8 @@ type Props = {
 
 export default async function IsRoleAuth({ children }: Props) {
   const currentUser = (await getCurrentUser()) as IClientResponse<IUser>;
-  const currentUserRole = currentUser?.data?.roles;
+  const currentUserRole = currentUser?.data?.roles as number[];
   console.log(currentUserRole);
-  console.log(await getInstructorById(22));
 
   // if the current user's role do not equal the authentic role; redirect to home '/'
   if (currentUser && !currentUserRole?.includes(1)) {

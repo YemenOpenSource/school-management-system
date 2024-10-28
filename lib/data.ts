@@ -20,7 +20,7 @@ type NavlinksType = {
 
 export const navLinks: NavlinksType[] = [
   {
-    title: "main page",
+    title: "home",
     href: "/dashboard",
     icon: House,
   },

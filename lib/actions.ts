@@ -528,6 +528,49 @@ export async function getRolesByUserId(
     }
   }
 }
+
+export async function getRoleById(
+  id: number,
+): Promise<IFetchResponse<IRole> | undefined> {
+  apiClient.defaults.headers.common["Authorization"] = `Bearer ${cookies().get("token")?.value
+    }`;
+  try {
+    const {
+      status,
+      statusText,
+      data: { statusCode, message, data },
+    } = await apiClient.get(
+      endpoints.authorization.roles.id + id,
+    );
+    return fetchResponse(
+      status || statusCode,
+      "success",
+      message || statusText,
+      data,
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error.response);
+      const {
+        data: { status, message },
+        status: anotherStatus,
+        statusText,
+      } = error?.response as AxiosResponse;
+      return fetchResponse(
+        status || anotherStatus,
+        "error",
+        message || statusText,
+      );
+    } else {
+      return fetchResponse(
+        400,
+        "error",
+        "edit this message getRolesByUserId() server",
+      );
+    }
+  }
+}
+
 export async function getAllInstructors(): Promise<
   IFetchResponse<IInstructor> | undefined
 > {
@@ -650,6 +693,49 @@ export async function updateInstructor(
     }
   }
 }
+
+export async function addInstructorToDepartment(
+  data: YupInstructorUpdateInputs,
+): Promise<IFetchResponse<IInstructor> | undefined> {
+  const token = cookies().get("token")?.value;
+  apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  try {
+    if (token) {
+      const {
+        status,
+        statusText,
+        data: { statusCode, message },
+      } = await apiClient.put(endpoints.subjects.addInstructorToDepartment, data);
+      revalidatePath("instructors");
+      return fetchResponse(
+        status || statusCode,
+        "success",
+        "instructor updated successfully",
+      );
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const {
+        status,
+        statusText,
+        data: { statusCode, message, errors },
+      } = error.response as AxiosResponse;
+      console.log(errors);
+      return fetchResponse(
+        status || statusCode,
+        "error",
+        errors || message || statusText,
+      );
+    } else {
+      return fetchResponse(
+        400,
+        "error",
+        "edit this message from addInstructorToDepartment server action",
+      );
+    }
+  }
+}
+
 
 export async function createInstructor(
   data: YupInstructorUpdateInputs,

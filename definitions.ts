@@ -35,7 +35,7 @@ export interface IUser {
   email?: string;
   imagePath?: string | null;
   fullName?: string;
-  roles?: number[];
+  roles?: number[] | string ;
   roleId?: number;
   createdAt?: string;
   lastUpdate?: string;
@@ -88,7 +88,7 @@ export interface IDepartment {
   managerId: number;
   managerName?: string;
   students: { id: number; name: string }[];
-  instructors: { id: number; nmae: string }[];
+  instructors: { id: number; name: string }[];
   subjects: { id: number; name: string }[];
 }
 

@@ -46,7 +46,7 @@ export default function UserUpdateForm(props: Props) {
     resolver: yupResolver(yupUserUpdateSchema),
     mode: "onChange",
     defaultValues: {
-      roleId: findRoleId,
+      roleId: Number(findRoleId),
       userName: userName,
       fullName: fullName,
       email: email,

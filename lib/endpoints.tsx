@@ -72,9 +72,9 @@ export const endpoints = {
     update: "subjects/update",
     delete: "subjects/delete/",
     addSubjectToDepartment: "subjects/add-to-department",
-    addInstructorToSubject: "subjects/add-instructor",
-    getSubjectsWithItsDepartments: "subjects/subject-with-departments",
-    getStudentsForSubject: "subjects/subjects-students-count",
-    getTopStudentInSubject: "subjects/top-student-in-each-subject",
+    addInstructorToDepartment: "subjects/add-instructor-to-department",
+    // getSubjectsWithItsDepartments: "subjects/subject-with-departments",
+    // getStudentsForSubject: "subjects/subjects-students-count",
+    // getTopStudentInSubject: "subjects/top-student-in-each-subject",
   },
 };
