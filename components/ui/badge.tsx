@@ -18,11 +18,11 @@ export default function Badge(props: Props) {
     xl: "text-xl px-1",
   };
   const variants = {
-    initial: "bg-gray-300 text-gray-700 outline-gray-300/80",
-    success: "bg-green-300 text-green-700 outline-green-300/80",
-    warning: "bg-yellow-300 text-yellow-700 outline-yellow-300/80",
-    danger: "bg-red-300 text-red-700 outline-red-300/80",
-    info: "bg-blue-300 text-blue-700 outline-blue-300/80",
+    initial: "bg-gray-100 text-gray-700 outline-1 outline outline-gray-200",
+    success: "bg-green-100 text-green-700 outline-1 outline outline-green-200",
+    warning: "bg-yellow-100 text-yellow-700 outline-1 outline outline-yellow-200",
+    danger: "bg-red-100 text-red-700 outline-1 outline outline-red-200",
+    info: "bg-blue-100 text-blue-700 outline-1 outline outline-blue-200",
   };
 
   const sfwndotme = (
@@ -37,7 +37,7 @@ export default function Badge(props: Props) {
 
   return (
     <span
-      className={`${settings} ${props?.className} rounded-[2.5px] cursor-default`}
+      className={`${settings} ${props?.className} rounded-[2.5px] cursor-default lowercase font-normal table`}
     >
       {title}
     </span>

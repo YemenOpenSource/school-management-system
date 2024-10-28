@@ -130,7 +130,7 @@ export default function StudentCreateForm(props: Props) {
             }
           >
             <option selected disabled>
-              select student
+              select department
             </option>
             {options}
           </select>

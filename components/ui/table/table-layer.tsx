@@ -157,7 +157,7 @@ export default function TableLayer(props: Props) {
             ) : ["name", "fullName", "subjectName"].includes(
               head.key as string,
             ) ? (
-              <Link href={`${props.route}/${data[idKey as string]}`}>
+              <Link href={`${props.route}/${data[idKey as string]}`} className="hover:text-blue-500 hover:underline">
                 {data[head.key as string]}
               </Link>
             )

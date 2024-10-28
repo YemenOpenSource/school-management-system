@@ -58,10 +58,10 @@ export default function Dropdown({ children, user }: Props) {
         <p className="capitalize text-sm text-gray-600 font-semibold">
           {user?.data?.fullName}
         </p>
-        <p className="capitalize text-xs text-gray-600">
+        <p className="capitalize text-xs text-gray-600 mb-2">
           {user?.data?.userName}
         </p>
-        <Badge variant="warning">{user?.data?.roles?.[0].toString() ?? "N/A"}</Badge>
+        <Badge variant="warning">{user?.data?.roles as string}</Badge>
       </div>
       <>
         {user?.data?.userName && (

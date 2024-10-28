@@ -36,21 +36,10 @@ export default function StudentUpdateForm(props: Props) {
     departmentId,
   } = props?.student?.data || {};
 
-  // const findDepartmentId = props?.departments.data?.find(
-  //   (department: IDepartment) =>
-  //     department?.name === departmentId?.toString(),
-  // )?.id;
 
   const { options, selectNotAllowed, message } = useDepartmentsOptions(
     props?.departments,
   );
-  // console.log(props?.student?.data)
-  // console.log(props?.departments?.data)
-
-  // console.log("departmentId", findDepartmentId);
-  //--------------------------------
-  //form submition
-  //--------------------------------
 
   const {
     register,
