@@ -1,6 +1,5 @@
-import { CircleDashed, Loader, LoaderPinwheel } from "lucide-react";
+import { Loader } from "lucide-react";
 import React from "react";
-import Nav from "./nav";
 
 export default function Loading() {
   return (

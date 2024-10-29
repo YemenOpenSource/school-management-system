@@ -1,6 +1,6 @@
 import { getAllRoles, getCurrentUser, getRoleById } from "@/lib/actions";
 import React from "react";
-import Drawer from "../dashboard-layout/drawer";
+import Drawer from "./drawer";
 import { IClientResponse, IRole, IUser } from "@/definitions";
 
 type Props = {

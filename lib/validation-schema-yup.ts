@@ -47,6 +47,7 @@ export const yupUserUpdateSchema = object({
   fullName: user.fullName,
   email: user.email,
   roleId: user.roleId,
+  image: user?.image
 });
 
 export const yupUserResetPasswordSchema = object({

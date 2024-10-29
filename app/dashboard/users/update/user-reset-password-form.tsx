@@ -20,12 +20,9 @@ type Props = {
   user: IClientResponse<IUser>;
 };
 
-export const revalid = 1;
 export default function UserResetPasswordForm(props: Props) {
-  const [isUpdating, startUpdating] = useTransition();
+  const [isReseting, startReset] = useTransition();
   const { responseRef, updateResponse } = useFetchResponse();
-
-  const { email } = props?.user.data || {};
 
   const {
     register,
@@ -36,12 +33,12 @@ export default function UserResetPasswordForm(props: Props) {
     reValidateMode: "onChange",
     mode: "onChange",
     defaultValues: {
-      email,
+      email: props?.user?.data?.email ?? "",
     },
   });
 
   const isUpdatingValid = isValid;
-  const isButtonValid = isUpdating || !isUpdatingValid;
+  const isButtonValid = isReseting || !isUpdatingValid;
   const onSubmit: SubmitHandler<YupUserResetPassword> = (data) => {
     const { password, confirmPassword, email } = data;
     const newPassword = {
@@ -49,7 +46,7 @@ export default function UserResetPasswordForm(props: Props) {
       confirmPassword,
       email,
     };
-    startUpdating(async () => {
+    startReset(async () => {
       if (isUpdatingValid) {
         const res = await resetUserPassword(newPassword);
         if (res) {
@@ -102,8 +99,8 @@ export default function UserResetPasswordForm(props: Props) {
           <Button
             variant="info"
             type="submit"
-            loading={isUpdating}
-            disabled={!isValid || isUpdating}
+            loading={isReseting}
+            disabled={isButtonValid}
             loadingText="Updating..."
             width="full"
           >

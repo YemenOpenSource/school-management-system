@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import DrowerNavLinksLayout from "../ui/drawer-navlinks-layout";
-import Nav from "../ui/nav";
+import DrowerNavLinksLayout from "./ui/drawer-navlinks-layout";
+import Nav from "./ui/nav";
 import { IClientResponse, IUser } from "@/definitions";
 type Props = {
   children: React.ReactNode;
@@ -24,8 +24,8 @@ export default function Drawer(props: Props) {
       ) : null}
       <div
         className={`${toggleDrawer
-            ? "col-span-20 sm:col-span-20 md:col-span-20 lg:col-span-15 xl:col-span-16 2xl:col-span-17"
-            : "col-span-full"
+          ? "col-span-20 sm:col-span-20 md:col-span-20 lg:col-span-15 xl:col-span-16 2xl:col-span-17"
+          : "col-span-full"
           } h-full w-full`}
       >
         <Nav

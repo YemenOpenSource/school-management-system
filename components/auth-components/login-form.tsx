@@ -40,12 +40,6 @@ export default function LoginForm() {
     mode: "onChange",
   });
 
-  // const errorMessage = (value: keyof LoginInputTypes) => {
-  //   let message = errors[value]?.message;
-  //   if (message !== undefined) return message;
-  //   return "";
-  // };
-
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     startLogin(async () => {
       const loginCredentials = {

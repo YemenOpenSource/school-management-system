@@ -287,19 +287,20 @@ export async function getUserById(
 }
 
 export async function updateUser(
-  data: IUser,
+  // data: IUser,
+  data: FormData,
 ): Promise<IFetchResponse<undefined> | undefined> {
   const token = cookies().get("token")?.value;
   apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-  const FD = appendToFormData(data);
+  
   try {
     if (token) {
       const {
         status,
         statusText,
         data: { statusCode, message },
-      } = await apiClient.put(endpoints.users.update, FD);
+      } = await apiClient.put(endpoints.users.update, data);
+    // } = await apiClient.put(endpoints.users.update, FD);
       revalidatePath('uesrs')
       return fetchResponse(
         status || statusCode,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition } from "react";
+import React, { ChangeEvent, useState, useTransition } from "react";
 import Input from "@/components/ui/input";
 import {
   IClientResponse,
@@ -16,6 +16,7 @@ import Message from "@/components/ui/message";
 import FetchMessage from "@/components/ui/fetch-message";
 import useFetchResponse from "@/hooks/use-fetch-response";
 import { useRolessOptions } from "@/hooks/use-roles-options";
+import FileInput from "@/components/ui/file-input";
 
 type Props = {
   user: IClientResponse<IUser>;
@@ -25,6 +26,14 @@ type Props = {
 export default function UserUpdateForm(props: Props) {
   const [isUpdating, startUpdatingUser] = useTransition();
   const { responseRef, updateResponse } = useFetchResponse();
+  const [profileImage, setProfileImage] = useState("");
+
+  const imagePreview = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setProfileImage(URL.createObjectURL(file));
+    }
+  };
 
   const {
     id: userId,
@@ -32,6 +41,7 @@ export default function UserUpdateForm(props: Props) {
     userName,
     email,
     roles,
+    imagePath
   } = props?.user.data || {};
   const findRoleId = roles?.[0]
 
@@ -50,6 +60,7 @@ export default function UserUpdateForm(props: Props) {
       userName: userName,
       fullName: fullName,
       email: email,
+      image: imagePath ?? ""
     },
   });
 
@@ -57,17 +68,29 @@ export default function UserUpdateForm(props: Props) {
 
   const isUpdatingValid = isValid && !selectNotAllowed;
   const isButtonValid = isUpdating || !isUpdatingValid;
+  console.log(selectNotAllowed)
+  console.log(isUpdatingValid)
+  console.log(isButtonValid)
+
   const onSubmit: SubmitHandler<YupUserUpdateInputs> = async (data) => {
+    const FD = new FormData()
+    FD.append('id', String(userId))
+    FD.append('userName', data?.userName)
+    FD.append('fullName', data?.fullName)
+    FD.append('email', data?.email)
+    FD.append('roleId', String(data?.roleId))
+
+    function isFileList(value: unknown): value is FileList {
+      return value instanceof FileList
+    }
+    if (isFileList(data?.image) && data?.image[0]) {
+      FD.append('image', data?.image?.[0])
+    }
+
     startUpdatingUser(async () => {
-      const newUserData = {
-        id: userId,
-        userName: data?.userName,
-        fullName: data?.fullName,
-        email: data?.email,
-        roleId: Number(data?.roleId),
-      };
+
       if (isUpdatingValid) {
-        const res = await updateUser(newUserData);
+        const res = await updateUser(FD);
         if (res) {
           updateResponse(res);
         }
@@ -77,9 +100,17 @@ export default function UserUpdateForm(props: Props) {
 
   return (
     <div className="w-full md:max-w-[700px] md:w-auto mx-auto rounded border border-gray-300 p-4">
-      <h1 className="mb-4 text-lg font-medium underline">
-        Update user&apos;s info:
-      </h1>
+      <div className="size-20 border border-gray-300 rounded mx-auto mb-8 overflow-hidden">
+        {/*  eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={
+            profileImage || imagePath ||
+            "https://www.transparentpng.com/thumb/user/gray-user-profile-icon-png-fP8Q1P.png"
+          }
+          alt="user image"
+          className="size-full object-cover aspect-square"
+        />
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-4 gap-2"
@@ -127,7 +158,6 @@ export default function UserUpdateForm(props: Props) {
         </div>
         <select
           {...register("roleId")}
-          // defaultValue={findRoleId}
           className="disabled:opacity-50 disabled:cursor-not-allowed w-full h-fit border border-gray-500 rounded text-black text-sm px-4 py-2 cursor-pointer col-span-1"
           disabled={selectNotAllowed}
           title={
@@ -141,6 +171,14 @@ export default function UserUpdateForm(props: Props) {
           </option>
           {options}
         </select>
+        <div className="col-span-full">
+          <FileInput
+            type="file"
+            placeholder="Your image"
+            {...register("image")}
+            onChange={imagePreview}
+          />
+        </div>
         <div className="col-span-full">
           <Button
             variant="info"

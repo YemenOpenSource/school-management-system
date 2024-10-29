@@ -12,33 +12,16 @@ import FileInput from "@/components/ui/file-input";
 import Message from "@/components/ui/message";
 import Input from "@/components/ui/input";
 import FetchMessage from "@/components/ui/fetch-message";
-
-interface CreateInputs {
-  userName: string;
-  fullName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  image: FileList;
-}
+import useFetchResponse from "@/hooks/use-fetch-response";
 
 type Props = {};
 export default function UserCreateForm({ }: Props) {
   const [isCreatingUser, startCreatingUser] = useTransition();
-  const apiResponseMessagesRef = useRef<IFetchResponse<[]>>({
-    isSuccess: false,
-    isError: false,
-    message: "",
-  });
+  const { responseRef, updateResponse } = useFetchResponse()
   const [profileImage, setProfileImage] = useState("");
-  const [nativeImage, setNativeImage] = useState<File>();
-  const [singleImage, setSingleImage] = useState<File | undefined>();
-  console.log(profileImage)
 
   const imagePreview = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    setSingleImage(file);
-    setNativeImage(file);
     if (file) {
       setProfileImage(URL.createObjectURL(file));
     }
@@ -73,8 +56,8 @@ export default function UserCreateForm({ }: Props) {
     function isFileList(value: unknown): value is FileList {
       return value instanceof FileList;
     }
-    if (isFileList(data.image) && data.image[0]) {
-      FD.append("image", data.image[0]);
+    if (isFileList(image) && image[0]) {
+      FD.append("image", image[0]);
     }
 
     startCreatingUser(async () => {
@@ -82,12 +65,7 @@ export default function UserCreateForm({ }: Props) {
         FD,
       )) as IFetchResponse<undefined>;
       if (res) {
-        const { isSuccess, isError, message } = res
-        apiResponseMessagesRef.current = {
-          isSuccess,
-          isError,
-          message,
-        };
+        updateResponse(res)
       }
     });
   };
@@ -182,19 +160,11 @@ export default function UserCreateForm({ }: Props) {
           <Message variant="danger">{errors.confirmPassword?.message}</Message>
         </div>
         <div className="col-span-full">
-          {/* <input type="file"
-            placeholder="Your image"
-            {...register("image")}
-            {...register("image")}
-            onChange={imagePreview}
-          /> */}
           <FileInput
             type="file"
-            // name="imagePath"
             placeholder="Your image"
             {...register("image")}
             onChange={imagePreview}
-          // accept="image/*"
           />
         </div>
         <div className="col-span-full">
@@ -216,9 +186,9 @@ export default function UserCreateForm({ }: Props) {
         </div>
         <div className="col-span-full">
           <FetchMessage
-            message={apiResponseMessagesRef.current.message}
-            isSuccess={apiResponseMessagesRef.current.isSuccess}
-            isError={apiResponseMessagesRef.current.isError}
+            message={responseRef.current.message}
+            isSuccess={responseRef.current.isSuccess}
+            isError={responseRef.current.isError}
           />
         </div>
       </form>

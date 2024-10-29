@@ -20,15 +20,12 @@ import {
 export type UpdateStateType = (
   updateFn: (prev: boolean) => boolean,
 ) => void | undefined;
-export type UpdateStateAdvancedType<S> = (updateFn: (prev: S) => S) => void;
 
 //---------------------------------
 // database types
 //---------------------------------
 export type ILogin = InferType<typeof yupLoginSchema>;
 
-export type RoleTypes = "Admin" | "HR" | "User";
-export type StringOrNull = string | null;
 export interface IUser {
   id?: number;
   userName?: string;
@@ -43,14 +40,6 @@ export interface IUser {
 export type YupUserUpdateInputs = InferType<typeof yupUserUpdateSchema>;
 export type YupUserResetPassword = InferType<typeof yupUserResetPasswordSchema>;
 
-// export interface YupUserCreateInputs {
-//   userName: string;
-//   fullName: string;
-//   email: string;
-//   password: string;
-//   confirmPassword: string;
-//   image: File;
-// }
 export type YupUserCreateInputs = InferType<typeof yupUserCreateSchema>;
 export interface IInstructor {
   id?: number;
@@ -64,14 +53,6 @@ export interface IInstructor {
   supervisorId: number;
   salary: number;
   deptId: number;
-}
-export interface IInstructorUpdate {
-  id?: number;
-  nameAr: string;
-  nameEn: string;
-  position: string;
-  salary: number;
-  departmentId: number;
 }
 
 export type YupInstructorUpdateInputs = InferType<
@@ -123,12 +104,6 @@ export interface ISubject {
   period?: string;
 }
 
-export interface ISubjectUpdate {
-  subjectId: number;
-  subjectNameAr: string;
-  subjectNameen: string;
-  period: string;
-}
 export type YupSubjectUpdateInputs = InferType<typeof yupSubjectUpdateSchema>;
 export type YupSubjectCreateInputs = InferType<typeof yupSubjectCreateSchema>;
 
@@ -138,10 +113,6 @@ export interface IRole {
   hasRole?: boolean;
 }
 
-export interface IRoleByUserId {
-  userId: number;
-  roles: IRole[];
-}
 //---------------------------------
 // react hook form types
 //---------------------------------

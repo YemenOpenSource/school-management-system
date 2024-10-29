@@ -17,7 +17,8 @@
   - [x] students -> departmen
   - [ ] subjects -> departmen -> this will be updated from the api then resolve
 - [ ] dynamic breadcrump
-
+- [x] add image update for user update endpoint
+- [ ] convert image url to file for the update user file.
 
 **profiles:**
 - [x] dashboard page for general information
@@ -30,3 +31,4 @@
 - [ ] add subject to department -> waiting for the backend to resovle this issue
 - [x] add instructor to department
 - [x] add student to department
+
