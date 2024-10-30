@@ -110,37 +110,6 @@ export default function TableLayer(props: Props) {
     data &&
     data?.map((data: any) => (
       <Tr key={data[idKey]}>
-        {/* {props.tableHeader?.map((head) => (
-          <Td key={head.name} id={data[idKey]}>
-            {head.key === "imagePath" ? (
-              <Image
-                width={40}
-                height={40}
-                src={
-                  data?.[head?.key] ||
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
-                }
-                alt={data?.[idKey] || "data avatar"}
-                className="size-10 border border-gray-300 rounded shadow-sm"
-              />
-            ) : Array.isArray(data[head.key as string]) ? (
-              data[head.key as string].map((nestedArrayItem: ITableHead) =>
-                (head.arr as ITableHead[])?.map(
-                  (ar: ITableHead) =>
-                    `${[nestedArrayItem[ar.key as string]]}, `,
-                ),
-              )
-            ) : ["name", "fullName", "subjectName"].includes(
-                head.key as string,
-              ) ? (
-              <Link href={`${props.route}/${data[idKey as string]}`}>
-                {data[head.key as string]}
-              </Link>
-            ) : (
-              data[head.key as string]
-            )}
-          </Td>
-        ))} */}
         {props.tableHeader?.map((head) => (
           <Td key={head.name} id={data[idKey]}>
             {head.key === "imagePath" ? (
@@ -152,7 +121,7 @@ export default function TableLayer(props: Props) {
                   "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
                 }
                 alt={data?.[idKey] || "data avatar"}
-                className="size-10 border border-gray-300 rounded shadow-sm"
+                className="size-10 border border-gray-300 rounded shadow-sm object-cover"
               />
             ) : ["name", "fullName", "subjectName"].includes(
               head.key as string,

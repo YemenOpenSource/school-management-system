@@ -28,32 +28,21 @@ const user = {
     .required("confirm password is required")
     .oneOf([ref("password")], "Password must match"),
   email: string().email().required(),
-  // image: string().required("Select image"),
-  image: mixed()
-    .required("Select image")
-    .test("fileType", "File must be an image", (value) => {
-      // Type assertion to FileList
-      const fileList = value as FileList;
-      return fileList && fileList[0] && ["image/jpeg", "image/png", "image/gif"].includes(fileList[0].type);
-    }),
+  image: string().required("Select image"),
+  // image: mixed()
+  //   .required("Select image")
+  //   .test("fileType", "File must be an image", (value) => {
+  //     // Type assertion to FileList
+  //     const fileList = value as FileList;
+  //     return fileList && fileList[0] && ["image/jpeg", "image/png", "image/gif"].includes(fileList[0].type);
+  //   }),
   roleId: number().nullable().optional(),
 };
 export const yupLoginSchema = object({
   username: user.userName,
   password: user.password,
 });
-export const yupUserUpdateSchema = object({
-  userName: user.userName,
-  fullName: user.fullName,
-  email: user.email,
-  roleId: user.roleId,
-});
 
-export const yupUserResetPasswordSchema = object({
-  password: user.password,
-  confirmPassword: user.confirmPassword,
-  email: user.email,
-});
 
 export const yupUserCreateSchema = object({
   userName: user.userName,
@@ -62,6 +51,20 @@ export const yupUserCreateSchema = object({
   password: user.password,
   confirmPassword: user.confirmPassword,
   image: user.image,
+});
+
+export const yupUserUpdateSchema = object({
+  userName: user.userName,
+  fullName: user.fullName,
+  email: user.email,
+  roleId: user.roleId,
+  image: user?.image
+});
+
+export const yupUserResetPasswordSchema = object({
+  password: user.password,
+  confirmPassword: user.confirmPassword,
+  email: user.email,
 });
 
 // export const yupInstructorUpdateSchema = object({

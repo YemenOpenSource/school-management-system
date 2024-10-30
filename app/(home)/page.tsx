@@ -1,4 +1,4 @@
-import Hero from "@/components/home/hero";
+import Hero from "@/app/(home)/hero";
 import Nav from "@/components/ui/nav";
 import React from "react";
 

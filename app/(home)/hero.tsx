@@ -1,7 +1,5 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
-import Button from "../ui/button";
-import Link from "next/link";
+import Button from "../../components/ui/button";
 import { getCurrentUser } from "@/lib/actions";
 
 type Props = {};

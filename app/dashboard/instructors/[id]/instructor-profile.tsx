@@ -1,12 +1,12 @@
 import Badge from "@/components/ui/badge";
 import Button from "@/components/ui/button";
-import { IClientResponse, IInstructor } from "@/definitions";
+import { IClientResponse, IDepartment, IInstructor } from "@/definitions";
 import { Edit, User } from "lucide-react";
 import React from "react";
 
 type Props = {
   instructorById: IClientResponse<IInstructor>;
-  department: string,
+  department: IClientResponse<IDepartment>,
 };
 
 export default function InstructorProfile(props: Props) {
@@ -29,8 +29,9 @@ export default function InstructorProfile(props: Props) {
           <h3 className="text-gray-600 text-xl font-bold mb-1">
             {data?.name}
           </h3>
-          <p className="text-gray-400 text-sm font-normal mb-2">{data?.position}</p>
-          <Badge variant="info" size="sm" className="mx-auto">{department}</Badge>
+          <p className="text-gray-400 text-sm font-normal mb-2">position: {data?.position}</p>
+          <p className="text-gray-400 text-sm font-normal mb-2">department:</p>
+          <Button href={`/dashboard/departments/${department?.data?.id}`} width="initial" outline variant="info" size="xs" className="mx-auto w-fit">{department?.data?.name}</Button>
         </div>
       </div>
     </div>
