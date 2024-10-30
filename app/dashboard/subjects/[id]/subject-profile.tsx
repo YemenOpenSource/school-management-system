@@ -42,7 +42,7 @@ export default function SubjectProfile(props: Props) {
           <h3 className="text-gray-600 text-xl font-bold mb-1">
             {data?.name}
           </h3>
-          <p className="text-gray-400 text-sm font-normal mb-2">{readableDate}</p>
+          <p className="text-gray-400 text-sm font-normal mb-2">period: <span className="flex">{readableDate}</span></p>
         </div>
       </div>
     </div>

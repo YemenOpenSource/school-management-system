@@ -20,7 +20,7 @@ export default async function page(props: Props) {
         <Button href="/dashboard/students" value="Students" />
       </Title>
       <div className="w-full flex items-center justify-center">
-        <StudentProfile studentById={studentById} department={data?.name ?? 'no department yet'} />
+        <StudentProfile studentById={studentById} department={data?.name ?? ''} />
       </div>
     </div>
   );

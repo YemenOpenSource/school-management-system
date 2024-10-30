@@ -11,7 +11,8 @@ type Props = {
 export default async function page(props: Props) {
   const { id } = props?.params;
   const instructorById = (await getInstructorById(Number(id))) as IClientResponse<IInstructor>;
-  const { data } = await getDepartmentById(Number(instructorById?.data?.deptId)) as IClientResponse<IDepartment>
+  const department = await getDepartmentById(Number(instructorById?.data?.deptId)) as IClientResponse<IDepartment>
+
 
   return (
     <div>
@@ -19,7 +20,7 @@ export default async function page(props: Props) {
         <Button href="/dashboard/instructors" value="Instructors" />
       </Title>
       <div className="w-full flex items-center justify-center">
-        <InstructorProfile instructorById={instructorById} department={data?.name ?? ''} />
+        <InstructorProfile instructorById={instructorById} department={department} />
       </div>
     </div>
   );

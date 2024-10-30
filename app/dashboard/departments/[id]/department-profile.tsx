@@ -1,11 +1,12 @@
 import Button from "@/components/ui/button";
 // import Button from "@/components/ui/button";
-import { IClientResponse, IDepartment } from "@/definitions";
+import { IClientResponse, IDepartment, IInstructor } from "@/definitions";
 import { Edit, User } from "lucide-react";
 import React from "react";
 
 type Props = {
   departmentById: IClientResponse<IDepartment>;
+  manager: IInstructor
 };
 
 export default function DepartmentProfile(props: Props) {
@@ -31,10 +32,10 @@ export default function DepartmentProfile(props: Props) {
           <h3 className="text-gray-600 text-xl font-bold mb-1">
             {data?.name}
           </h3>
-          <p className="text-gray-400 text-sm font-normal mb-2">Managed by: <span className="flex">{data?.managerName}</span></p>
-          {subjectsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">subjects:<span className="flex flex-wrap gap-1">{data?.subjects?.map((subject) => <Button key={subject?.name} size="xs" variant="info" href={"/dashboard/subjects/" + subject?.id}>{subject.name}</Button>)}</span></p>}
-          {studentsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">students:<span className="flex flex-wrap gap-1">{data?.students?.map((student) => <Button key={student?.name} size="xs" variant="info" href={"/dashboard/students/" + student?.id}>{student.name}</Button>)}</span></p>}
-          {instructorsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">instructors:<span className="flex flex-wrap gap-1">{data?.instructors?.map((instructor) => <Button key={instructor?.name} size="xs" variant="info" href={"/dashboard/instructors/" + instructor?.id}>{instructor?.name}</Button>)}</span></p>}
+          {data?.managerName && <p className="text-gray-400 text-sm font-normal mb-2">Managed by: :<span className="flex flex-wrap gap-1 mt-2">{data?.subjects?.map((subject) => <Button key={subject?.name} size="xs" outline variant="info" href={"/dashboard/instructors/" + props?.manager?.id}>{props?.manager?.name}</Button>)}</span></p>}
+          {subjectsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">subjects:<span className="flex flex-wrap gap-1">{data?.subjects?.map((subject) => <Button key={subject?.name} size="xs" outline variant="info" href={"/dashboard/subjects/" + subject?.id}>{subject.name}</Button>)}</span></p>}
+          {studentsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">students:<span className="flex flex-wrap gap-1">{data?.students?.map((student) => <Button key={student?.name} size="xs" outline variant="info" href={"/dashboard/students/" + student?.id}>{student.name}</Button>)}</span></p>}
+          {instructorsCheck > 0 && <p className="text-gray-400 text-sm font-normal mb-2">instructors:<span className="flex flex-wrap gap-1">{data?.instructors?.map((instructor) => <Button key={instructor?.name} size="xs" outline variant="info" href={"/dashboard/instructors/" + instructor?.id}>{instructor?.name}</Button>)}</span></p>}
         </div>
       </div>
     </div>

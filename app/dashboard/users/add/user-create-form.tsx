@@ -37,7 +37,6 @@ export default function UserCreateForm({ }: Props) {
     mode: "onChange",
   });
 
-
   const onSubmit: SubmitHandler<YupUserCreateInputs> = async (data) => {
     const { userName, fullName, email, password, confirmPassword, image } =
       data;
@@ -51,14 +50,15 @@ export default function UserCreateForm({ }: Props) {
     FD.append("password", password);
     FD.append("confirmPassword", confirmPassword);
     // FD.append("image", watch()?.image?.[0]);
-    // FD.append("image", profileImage);
+    FD.append("image", watch()?.image[0]);
+    console.log(image)
 
-    function isFileList(value: unknown): value is FileList {
-      return value instanceof FileList;
-    }
-    if (isFileList(image) && image[0]) {
-      FD.append("image", image[0]);
-    }
+    // function isFileList(value: unknown): value is FileList {
+    //   return value instanceof FileList;
+    // }
+    // if (isFileList(image) && image[0]) {
+    //   FD.append("image", image[0]);
+    // }
 
     startCreatingUser(async () => {
       const res = (await createUser(

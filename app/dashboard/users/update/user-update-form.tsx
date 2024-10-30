@@ -65,12 +65,10 @@ export default function UserUpdateForm(props: Props) {
   });
 
   console.log(watch())
+  console.log(errors)
 
   const isUpdatingValid = isValid && !selectNotAllowed;
   const isButtonValid = isUpdating || !isUpdatingValid;
-  console.log(selectNotAllowed)
-  console.log(isUpdatingValid)
-  console.log(isButtonValid)
 
   const onSubmit: SubmitHandler<YupUserUpdateInputs> = async (data) => {
     const FD = new FormData()
@@ -79,13 +77,7 @@ export default function UserUpdateForm(props: Props) {
     FD.append('fullName', data?.fullName)
     FD.append('email', data?.email)
     FD.append('roleId', String(data?.roleId))
-
-    function isFileList(value: unknown): value is FileList {
-      return value instanceof FileList
-    }
-    if (isFileList(data?.image) && data?.image[0]) {
-      FD.append('image', data?.image?.[0])
-    }
+    FD.append('image', watch()?.image[0])
 
     startUpdatingUser(async () => {
 

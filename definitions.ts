@@ -55,6 +55,17 @@ export interface IInstructor {
   deptId: number;
 }
 
+// {
+//   id: 6,
+//   name: 'Dr. Gamal Hassan',
+//   address: '678 Professor St',
+//   position: 'Professor',
+//   imagePath: null,
+//   supervisorId: null,
+//   salary: 70000,
+//   deptId: 4
+// }
+
 export type YupInstructorUpdateInputs = InferType<
   typeof yupInstructorUpdateSchema
 >;

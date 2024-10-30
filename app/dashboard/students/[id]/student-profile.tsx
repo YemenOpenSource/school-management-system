@@ -30,7 +30,7 @@ export default function StudentProfile(props: Props) {
             {data?.name}
           </h3>
           <p className="text-gray-400 text-sm font-normal mb-2">{data?.address}</p>
-          <Badge variant="info" size="sm" className="mx-auto">{department}</Badge>
+          {department && <p className="text-gray-400 text-sm font-normal mb-2">department: <span className="flex">{department}</span></p>}
         </div>
       </div>
     </div>
