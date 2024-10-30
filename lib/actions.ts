@@ -292,7 +292,7 @@ export async function updateUser(
 ): Promise<IFetchResponse<undefined> | undefined> {
   const token = cookies().get("token")?.value;
   apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  
+
   try {
     if (token) {
       const {
@@ -300,7 +300,7 @@ export async function updateUser(
         statusText,
         data: { statusCode, message },
       } = await apiClient.put(endpoints.users.update, data);
-    // } = await apiClient.put(endpoints.users.update, FD);
+      // } = await apiClient.put(endpoints.users.update, FD);
       revalidatePath('uesrs')
       return fetchResponse(
         status || statusCode,

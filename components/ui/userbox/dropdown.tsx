@@ -20,6 +20,8 @@ export default function Dropdown({ children, user }: Props) {
   const pathname = usePathname();
   const [isLogout, startLogout] = useTransition();
 
+  console.log(user?.data?.id)
+
   const handleLogout = () => {
     startLogout(async () => {
       const tokenValid = await isTokenValid();
@@ -43,6 +45,7 @@ export default function Dropdown({ children, user }: Props) {
   const dropDownLinks = isUserLinksProtectedOrPublic?.map((link) =>
     pathname !== link?.href ? (
       <Link
+        // href={link?.title !== "profile"?link?.href: link?.href + user?.data?.id}
         href={link?.href}
         className={` bg-white hover:bg-gray-100 duration-150 text-gray-700 w-full text-sm sm:text-base font-normal p-1 cursor-pointer rounded`}
         key={link?.title}

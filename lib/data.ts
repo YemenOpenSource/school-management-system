@@ -81,6 +81,7 @@ export const userAvatarNavlinks = {
     {
       title: "profile",
       href: "/profile",
+      // href: "/dashboard/users/",
       roles: ["Admin", "User", "HR"],
     },
     {

@@ -174,6 +174,7 @@ export default function UserUpdateForm(props: Props) {
         <div className="col-span-full">
           <FileInput
             type="file"
+            title="update image"
             placeholder="Your image"
             {...register("image")}
             onChange={imagePreview}

@@ -16,7 +16,7 @@
   - [x] departments -> instructor as a manager
   - [x] students -> departmen
   - [ ] subjects -> departmen -> this will be updated from the api then resolve
-- [ ] dynamic breadcrump
+- [x] dynamic breadcrump
 - [x] add image update for user update endpoint
 - [ ] convert image url to file for the update user file.
 

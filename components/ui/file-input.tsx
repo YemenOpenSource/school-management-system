@@ -14,7 +14,7 @@ const FileInput = React.forwardRef<HTMLInputElement, InputProps>(
       <div className="group relative border border-blue-500 border-dashed h-[150px] md:h-[200px] w-full bg-blue-50 hover:bg-blue-100/60 rounded flex items-center justify-center cursor-pointer">
         <span className="flex items-center justify-center gap-2 group-hover:text-blue-500 text-sm md:text-base">
           <UploadCloud />
-          Upload Image
+          {props?.title || 'Upload Image'}
         </span>
         <input
           type="file"
