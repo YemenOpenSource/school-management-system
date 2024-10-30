@@ -1,9 +1,9 @@
 # login info
 
-username: admin
+username: admin<br/>
 password: Aa@123.123
 
-**backend resource, built by [@yousef132](https://github.com/yousef132/School-Managament-System)**
+backend resource, built by [@yousef132](https://github.com/yousef132/School-Managament-System)
 
 # Refactors
 
