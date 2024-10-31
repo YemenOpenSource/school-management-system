@@ -3,9 +3,15 @@ import Button from '@/components/ui/button'
 import Title from '@/components/ui/title'
 import { IClientResponse, IRole, IUser } from '@/definitions'
 import { getCurrentUser, getRoleById } from '@/lib/actions'
+import { Metadata } from 'next'
 import React from 'react'
 
 type Props = {}
+
+export const metadata: Metadata = {
+  title: "profile",
+  description: "your next step for managing your employees",
+};
 
 export default async function page({ }: Props) {
   const user = await getCurrentUser() as IClientResponse<IUser>

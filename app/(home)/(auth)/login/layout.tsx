@@ -1,7 +1,12 @@
 import IsAuth from "@/lib/is-auth";
+import { Metadata } from "next";
 
 type Props = {
   children: React.ReactNode;
+};
+export const metadata: Metadata = {
+  title: "login",
+  description: "your next step for managing your employees",
 };
 
 export default function layout({ children }: Props) {

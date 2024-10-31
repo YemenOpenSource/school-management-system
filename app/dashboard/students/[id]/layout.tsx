@@ -2,10 +2,7 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | students',
-    default: 'students'
-  },
+  title: 'profile'
 };
 
 type Props = {

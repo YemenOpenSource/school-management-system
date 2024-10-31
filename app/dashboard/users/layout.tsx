@@ -1,17 +1,17 @@
-import Button from "@/components/ui/button";
-import Loading from "@/components/ui/loading/loading";
-import Title from "@/components/ui/title";
-import { useRouter } from "next/router";
-import React, { Suspense } from "react";
+import { Metadata } from "next";
+import React from "react";
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | users',
+    default: 'users'
+  },
+};
 
 type Props = {
   children: React.ReactNode;
 };
 
-export default function layout(props: Props) {
-  return (
-    <div>
-      <Suspense fallback={<Loading />}>{props?.children}</Suspense>
-    </div>
-  );
+export default function layout({ children }: Props) {
+  return <div>{children}</div>;
 }

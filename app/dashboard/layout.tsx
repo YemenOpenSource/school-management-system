@@ -5,6 +5,13 @@ import IsRoleAuth from "@/lib/is-role-auth";
 import BreadCrump from "@/components/breadcrump";
 import Title from "@/components/ui/title";
 import Button from "@/components/ui/button";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "dashboard",
+  description: "your next step for managing your employees",
+};
+
 type Props = {
   children: React.ReactNode;
 };

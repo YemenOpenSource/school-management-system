@@ -3,8 +3,8 @@ import React from "react";
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | students',
-    default: 'students'
+    template: '%s | subjects',
+    default: 'subjects'
   },
 };
 

@@ -5,6 +5,7 @@ password: Aa@123.123
 
 backend resource, built by [@yousef132](https://github.com/yousef132/School-Managament-System)
 
+[click here to see what I encounterd and what I did every day with this project](./README-V1.md)
 # Refactors
 
 **fixes:**
@@ -26,6 +27,8 @@ backend resource, built by [@yousef132](https://github.com/yousef132/School-Mana
 - [x] dynamic breadcrump
 - [x] add image update for user update endpoint
 - [x] solve the image user update endpoint not accepts the image url.
+- [x] add metatitles and change the favicon
+- [x] fix the vercel deploy issue
 
 **profiles:**
 - [x] dashboard page for general information
