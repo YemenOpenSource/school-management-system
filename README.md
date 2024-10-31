@@ -1,6 +1,6 @@
 # login info<br/>
 
-[live demo](https://school-management-system-fupl6iixg-sfwnismes-projects.vercel.app)<br/>
+[live demo](https://school-management-system-ten-tau.vercel.app/)<br/>
 username: admin<br/>
 password: Aa@123.123
 
@@ -10,6 +10,7 @@ backend resource, built by [@yousef132](https://github.com/yousef132/School-Mana
 # Refactors
 
 **fixes:**
+- [ ] user profile image not appeares in the user profile page.
 - [ ] make the form inputs of the react hook form array of objects to make the component clearer.
 - [ ] create a UI Component for the departments or any multi-data columns.
 - [x] refactor all the endpoints objects keys
