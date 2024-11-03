@@ -16,6 +16,7 @@ yes, I agree, it was a challenge doing the following:
 + Learn Nextjs from the docs only and build the project directly.
 + Avoid using libraries, just using axios, and tailwind.
 + Deep dive into typescript and meet the validations types.
++ Collaborate with backend developer and API's.
 + Building a structured native [fetchResponse function](./lib/utils.ts) and retunred schema semulates the [React Query Library](https://tanstack.com/query/latest) from scratch to make the components clear and more readable, the following snippet explains the concept
 ```tsx
 if (isSuccess) {
