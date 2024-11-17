@@ -48,8 +48,6 @@ export function fetchResponse<T>(
     isEmpty: false,
     isSuccess: false,
     isError: true,
-    // isAuth: true, // initially true to check either auth or not
-    // isAuth: false, // initially true to check either auth or not
     message:
       "this message is the default message of the response returned schema",
   };
@@ -89,13 +87,11 @@ export function fetchResponse<T>(
   if (status === "success") {
     initialObject.isSuccess = true;
     initialObject.isError = false;
-    initialObject.isAuth = true;
   } else if (status === "error") {
     if (statusCode === 401) {
       console.log(statusCode);
       initialObject.isSuccess = false;
       initialObject.isError = true;
-      initialObject.isAuth = false;
     } else {
       initialObject.isSuccess = false;
       initialObject.isError = true;

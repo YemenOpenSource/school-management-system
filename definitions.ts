@@ -32,7 +32,7 @@ export interface IUser {
   email?: string;
   imagePath?: string | null;
   fullName?: string;
-  roles?: number[] | string ;
+  roles?: number[] | string;
   roleId?: number;
   createdAt?: string;
   lastUpdate?: string;
@@ -150,14 +150,13 @@ export interface IFetchResponse<T> {
   isEmpty?: boolean;
   isSuccess: boolean;
   isError: boolean;
-  isAuth?: boolean;
   message: string | string[] | { [key: string]: string[] } | {} | null;
 }
 
 export interface IClientResponse<T>
   extends Pick<
     IFetchResponse<T>,
-    "isEmpty" | "isSuccess" | "isError" | "isAuth" | "message"
+    "isEmpty" | "isSuccess" | "isError" | "message"
   > {
   data?: T;
 }

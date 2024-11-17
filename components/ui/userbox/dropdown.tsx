@@ -142,10 +142,6 @@ export default function Dropdown({ children, user }: Props) {
   if (user?.isError) {
     content = "";
   }
-  // if (user?.isError) {
-  //   content = "";
-  // }
-  console.log(user?.isError, user?.isAuth);
 
   const finalContent = (
     <div className="z-10 absolute shadow-xl shadow-gray-200 right-6 top-[calc(100%+10px)] bg-white border border-gray-300 rounded-md p-1 flex flex-col flex-wrap items-start justify-start gap-2 min-w-[150px] md:min-w-[200px]">
