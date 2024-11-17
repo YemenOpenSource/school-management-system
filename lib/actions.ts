@@ -19,7 +19,7 @@ import {
   YupSubjectUpdateInputs,
   YupUserResetPassword,
 } from "@/definitions";
-import { appendToFormData, fetchResponse } from "./utils";
+import { fetchResponse } from "./fetch-response-parser";
 
 //----------------------------
 // Authentication endpoints
